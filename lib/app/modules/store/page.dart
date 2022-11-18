@@ -1,6 +1,9 @@
 import 'package:app_hortifruti_pratico/app/modules/store/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:transparent_image/transparent_image.dart';
+
+import '../../widgets/store_status.dart';
 
 class StorePage extends GetView<StoreController> {
 
@@ -8,15 +11,41 @@ class StorePage extends GetView<StoreController> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-    appBar: AppBar(title: Text('StorePage')),
+    appBar: AppBar(),
 
     body: controller.obx(
       (state) => ListView(
         children: [
-          Row(
-            children: [
-              Text(state!.name)
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            child: Row(
+              children: [
+                Container(
+                      width: 96.0,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: FadeInImage.memoryNetwork(
+                          placeholder: kTransparentImage,
+                          image: state!.image,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 16.0,),
+                 Expanded(
+                   child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          state.name,
+                          style: Get.textTheme.headline5,
+                          ),
+                          const SizedBox(height: 8.0,),
+                           StoreStatus(isOnline:state.isOnline)
+                      ],
+                    ),
+                 ),
+              ],
+            ),
           ),
         ],
       )
