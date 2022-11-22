@@ -6,6 +6,8 @@ class ProductModel {
   String? description;
   String image;
 
+  bool get isKg => uniOfMeasure == 'KG';
+
   ProductModel({
     required this.id,
     required this.name,
@@ -15,7 +17,7 @@ class ProductModel {
     required this.image,
   });
 
-   factory ProductModel.fromJson(Map<String, dynamic> json) => StoreModel(
+  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         id: json['id'],
         name: json['nome'],
         price: json['preco'],
